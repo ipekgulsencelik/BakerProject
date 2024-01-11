@@ -11,10 +11,9 @@ namespace Baker.EntityLayer.Concrete
         public string? Description { get; set; }
         public bool IsHome { get; set; }
 
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string OfferID { get; set; }
+        public string? OfferID { get; set; }
 
         [BsonIgnore]
-        public Offer Offer { get; set; }
+        public Offer? Offer { get; set; }
     }
 }

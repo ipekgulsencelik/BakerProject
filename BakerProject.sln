@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Baker.WebUI", "Baker.WebUI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Baker.EntityLayer", "Baker.EntityLayer\Baker.EntityLayer.csproj", "{5CC7F0C7-0B3B-4016-ACE6-AA0D5C08E6F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baker.DataAccessLayer", "Baker.DataAccessLayer\Baker.DataAccessLayer.csproj", "{B77802FA-FBAC-4B2E-BF00-197E552B0522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Baker.DataAccessLayer", "Baker.DataAccessLayer\Baker.DataAccessLayer.csproj", "{B77802FA-FBAC-4B2E-BF00-197E552B0522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baker.BusinessLayer", "Baker.BusinessLayer\Baker.BusinessLayer.csproj", "{432B1691-4771-417F-9A50-888A9CDA5DAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Baker.BusinessLayer", "Baker.BusinessLayer\Baker.BusinessLayer.csproj", "{432B1691-4771-417F-9A50-888A9CDA5DAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

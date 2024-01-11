@@ -1,0 +1,146 @@
+﻿﻿
+@model List<Baker.WebUI.Mediator.Results.TestimonialResults.GetTestimonialQueryResult>
+
+@{
+    ViewData["Title"] = "Index";
+    int count = 0;
+}
+
+@if (Model.Count() > 0)
+{
+	<table class="table table-bordered">
+		<tr>
+			<th>#</th>
+			<th>Görsel</th>
+			<th>Referans Adı</th>
+			<th>Yorum</th>
+			<th>Ana Sayfa</th>
+			<th>Durum</th>
+			<th>Detay</th>
+			<th>Sil</th>
+			<th>Güncelle</th>
+		</tr>
+		@foreach (var item in Model)
+		{
+			count++;
+			<tr>
+				<td>@count</td>
+				<td><img src="~/images/@item.TestimonialImageURL" style="height:50px; width:50px; border-radius:50;" /></td>
+				<td>@item.TestimonialFullName</td>
+				@if (@item.TestimonialComment == null || @item.TestimonialComment.Length <= 30)
+				{
+					<td>@item.TestimonialComment</td>
+				}
+				else
+				{
+					<td>
+						<a href="#" id="CommentBtn"
+						   onclick="return commentTestimonial('@item.TestimonialComment', '@item.ID')">
+							@item.TestimonialComment.Substring(0, 10)...
+						</a>
+					</td>
+				}
+				<td>
+					@{
+						if (item.IsHome == true)
+						{
+							<button onclick="updateHomeStatus(@item.ID)" type="submit" class="btn btn-success">Ekle</button>
+						}
+						else
+						{
+							<button onclick="updateHomeStatus(@item.ID)" type="submit" class="btn btn-danger">Çıkar</button>
+						}
+					}
+				</td>
+				<td>
+					@{
+						if (item.Status == true)
+						{
+							<button onclick="updateStatus(@item.ID)" type="submit" class="btn btn-success">Aktif</button>
+						}
+						else
+						{
+							<button onclick="updateStatus(@item.ID)" type="submit" class="btn btn-danger">Pasif</button>
+						}
+					}
+				</td>
+				<td><a href="/Admin/Testimonial/TestimonialDetails/@item.ID" class="btn btn-outline-success"><i class="fas fa-pen"></i> Detay</a></td>
+				<td><button onclick="deleteTestimonial(@item.ID)" type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Sil</button></td>
+				<td><a href="/Admin/Testimonial/UpdateTestimonial/@item.ID" class="btn btn-outline-success"><i class="fas fa-pen"></i> Güncelle</a></td>
+			</tr>
+		}
+	</table>
+}
+else
+{
+	<p>Kayıtlı Herhangi Bir Referans Verisi bulunmamaktatir.</p>
+}
+<a href="/Admin/Testimonial/CreateTestimonial/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni Referans Girişi</a>
+
+<script>
+	function commentTestimonial(comment, id) {
+		Swal.fire({
+			title: 'Yorum',
+			text: comment,
+			icon: 'success',
+			showCancelButton: true,
+			confirmButtonText: 'Güncelle',
+			cancelButtonText: 'Tamam'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "/Admin/Testimonial/UpdateTestimonial?id=" + id;
+			}
+		});
+	}
+</script>
+
+<script>
+	function deleteTestimonial(id) {
+		Swal.fire({
+			title: 'Silmek istediğinize emin misiniz?',
+			text: 'Bu öğeyi silerseniz geri alamazsınız!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Sil',
+			cancelButtonText: 'İptal'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "/Admin/Testimonial/DeleteTestimonial?id=" + id;
+			}
+		});
+	}
+</script>
+
+<script>
+	function updateHomeStatus(id) {
+		Swal.fire({
+			title: 'Ana Sayfa',
+			text: 'Ana Sayfa görünürlüğünü değiştirmek istediğinizden emin misiniz?',
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonText: 'Değiştir',
+			cancelButtonText: 'İptal'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "/Admin/Testimonial/ChangeHomeStatus?id=" + id;
+			}
+		});
+	}
+</script>
+
+<script>
+	function updateStatus(id) {
+		Swal.fire({
+			title: 'Durum',
+			text: 'Durumu değiştirmek istediğinizden emin misiniz?',
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonText: 'Değiştir',
+			cancelButtonText: 'İptal'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "/Admin/Testimonial/ChangeTestimonialStatus?id=" + id;
+			}
+		});
+	}
+</script>

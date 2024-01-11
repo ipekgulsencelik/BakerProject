@@ -1,5 +1,4 @@
 ﻿using Baker.EntityLayer.Abstract;
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Baker.EntityLayer.Concrete
@@ -13,10 +12,9 @@ namespace Baker.EntityLayer.Concrete
         public string? ProductImage { get; set; }
         public bool IsHome { get; set; }
 
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string CategoryID { get; set; }
+        public string? CategoryID { get; set; }
 
         [BsonIgnore]
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
     }
 }

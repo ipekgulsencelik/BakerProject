@@ -2,7 +2,7 @@
 
 namespace Baker.EntityLayer.Concrete
 {
-    internal class Testimonial : IMongoBaseEntity
+    public class Testimonial : IMongoBaseEntity
     {
         public string? TestimonialFullName { get; set; }
         public string? TestimonialComment { get; set; }
