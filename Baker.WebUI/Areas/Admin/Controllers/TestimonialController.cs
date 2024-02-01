@@ -48,14 +48,27 @@ namespace Baker.WebUI.Areas.Admin.Controllers
             }
 
             command.CreatedAt = DateTime.Now;
-
+           
             await _mediator.Send(command);
             return RedirectToAction("Index");
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> TestimonialDetails(string id)
+        {
+            var values = await _mediator.Send(new GetTestimonialByIdQuery(id));
+            return View(values);
+        }
+
         public async Task<IActionResult> DeleteTestimonial(string id)
         {
             await _mediator.Send(new RemoveTestimonialCommand(id));
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> ChangeTestimonialStatus(string id)
+        {
+            await _mediator.Send(new ChangeTestimonialStatusCommand(id));
             return RedirectToAction("Index");
         }
         

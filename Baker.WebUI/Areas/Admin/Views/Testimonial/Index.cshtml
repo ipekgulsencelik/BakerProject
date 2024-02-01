@@ -1,81 +1,90 @@
-﻿﻿
-@model List<Baker.WebUI.Mediator.Results.TestimonialResults.GetTestimonialQueryResult>
+﻿@model List<Baker.WebUI.Mediator.Results.TestimonialResults.GetTestimonialQueryResult>
 
 @{
     ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
     int count = 0;
 }
 
-@if (Model.Count() > 0)
-{
-	<table class="table table-bordered">
-		<tr>
-			<th>#</th>
-			<th>Görsel</th>
-			<th>Referans Adı</th>
-			<th>Yorum</th>
-			<th>Ana Sayfa</th>
-			<th>Durum</th>
-			<th>Detay</th>
-			<th>Sil</th>
-			<th>Güncelle</th>
-		</tr>
-		@foreach (var item in Model)
-		{
-			count++;
-			<tr>
-				<td>@count</td>
-				<td><img src="~/images/@item.TestimonialImageURL" style="height:50px; width:50px; border-radius:50;" /></td>
-				<td>@item.TestimonialFullName</td>
-				@if (@item.TestimonialComment == null || @item.TestimonialComment.Length <= 30)
-				{
-					<td>@item.TestimonialComment</td>
-				}
-				else
-				{
-					<td>
-						<a href="#" id="CommentBtn"
-						   onclick="return commentTestimonial('@item.TestimonialComment', '@item.ID')">
-							@item.TestimonialComment.Substring(0, 10)...
-						</a>
-					</td>
-				}
-				<td>
-					@{
-						if (item.IsHome == true)
-						{
-							<button onclick="updateHomeStatus(@item.ID)" type="submit" class="btn btn-success">Ekle</button>
-						}
-						else
-						{
-							<button onclick="updateHomeStatus(@item.ID)" type="submit" class="btn btn-danger">Çıkar</button>
-						}
-					}
-				</td>
-				<td>
-					@{
-						if (item.Status == true)
-						{
-							<button onclick="updateStatus(@item.ID)" type="submit" class="btn btn-success">Aktif</button>
-						}
-						else
-						{
-							<button onclick="updateStatus(@item.ID)" type="submit" class="btn btn-danger">Pasif</button>
-						}
-					}
-				</td>
-				<td><a href="/Admin/Testimonial/TestimonialDetails/@item.ID" class="btn btn-outline-success"><i class="fas fa-pen"></i> Detay</a></td>
-				<td><button onclick="deleteTestimonial(@item.ID)" type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Sil</button></td>
-				<td><a href="/Admin/Testimonial/UpdateTestimonial/@item.ID" class="btn btn-outline-success"><i class="fas fa-pen"></i> Güncelle</a></td>
-			</tr>
-		}
-	</table>
-}
-else
-{
-	<p>Kayıtlı Herhangi Bir Referans Verisi bulunmamaktatir.</p>
-}
-<a href="/Admin/Testimonial/CreateTestimonial/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni Referans Girişi</a>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+	<br />
+	<h1>Referans İşlemleri</h1>
+	<br />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Görsel</th>
+                <th>Referans Adı</th>
+                <th>Yorum</th>
+                <th>Ana Sayfa</th>
+                <th>Durum</th>
+                <th>Detay</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td><img src="~/images/@item.TestimonialImageURL" style="height:50px; width:50px; border-radius:50%;" /></td>
+                    <td>@item.TestimonialFullName</td>
+                    @if (@item.TestimonialComment == null || @item.TestimonialComment.Length <= 30)
+                    {
+                        <td>@item.TestimonialComment</td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a href="#" id="CommentBtn"
+                               onclick="return commentTestimonial('@item.TestimonialComment', '@item.ID')">
+                                @item.TestimonialComment.Substring(0, 10)...
+                            </a>
+                        </td>
+                    }
+                    <td>
+                        @{
+                            if (item.IsHome == true)
+                            {
+                                <a href="#" onclick="return updateHomeStatus('@item.ID')" class="btn btn-success">Ekle</a>
+                            }
+                            else
+                            {
+                                <a href="#" onclick="return updateHomeStatus('@item.ID')" class="btn btn-danger">Çıkar</a>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+                            if (item.Status == true)
+                            {
+                                <a href="#" onclick="return updateStatus('@item.ID')" class="btn btn-success">Aktif</a>
+                            }
+                            else
+                            {
+                                <a href="#" onclick="return updateStatus('@item.ID')" class="btn btn-danger">Pasif</a>
+                            }
+                        }
+                    </td>
+                    <td><a asp-controller="Testimonial" asp-action="TestimonialDetails" asp-route-id="@item.ID" class="btn btn-outline-dark"><i class="fas fa-pen"></i> Detay</a></td>
+                    <td><a href="#" onclick="return deleteTestimonial('@item.ID')" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Sil</a></td>
+                    <td><a href="/Admin/Testimonial/UpdateTestimonial/@item.ID" class="btn btn-outline-success"><i class="fas fa-pen"></i> Güncelle</a></td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Kayıtlı Herhangi Bir Referans Verisi bulunmamaktatir.</p>
+    }
+    <a href="/Admin/Testimonial/CreateTestimonial/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni Referans Girişi</a>
+</div>
+
 
 <script>
 	function commentTestimonial(comment, id) {

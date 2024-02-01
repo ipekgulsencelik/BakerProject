@@ -1,0 +1,31 @@
+﻿@using Baker.WebUI.CQRS.Results.AboutItemResults
+@model GetAboutItemByIdQueryResult
+
+@{
+    ViewData["Title"] = "UpdateAboutItem";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Yeni Hizmet Girişi</h1>
+    <br />
+    <form method="post" asp-controller="AboutItem" asp-action="UpdateAboutItem">
+        <input type="hidden" asp-for="ID" class="form form-control" />
+        <input type="hidden" asp-for="AboutID" class="form form-control" />
+        <label>ID</label>
+        <input type="text" asp-for="ID" disabled class="form form-control" />
+        <br />
+        <label>Bilgi</label>
+        <input type="text" asp-for="ItemName" class="form form-control" />
+        <br />
+        <input asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <input asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-success" type="submit"><i class="fas fa-save"></i> Hizmet Güncelle</button>
+    </form>
+</div>

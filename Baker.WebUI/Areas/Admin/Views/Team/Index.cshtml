@@ -1,0 +1,141 @@
+﻿@model List<Baker.WebUI.Mediator.Results.TeamResults.GetTeamQueryResult>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+    <br />
+    <h1>Takım Arkadaşları İşlemleri</h1>
+    <br />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Görsel</th>
+                <th>Çalışan Adı</th>
+                <th>Ünvan</th>
+                <th>Ana Sayfa</th>
+                <th>Durum</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td><img src="~/images/@item.TeamImageURL" style="height:50px; width:50px; border-radius:50%;" /></td>
+                    <td>@item.TeamFullName</td>
+                    <td>@item.TeamTitle</td>
+                    <td>
+                        @{
+                            if (item.IsHome == true)
+                            {
+                                <a href="#" onclick="return updateHomeStatus('@item.ID')" class="btn btn-success">Ekle</a>
+                            }
+                            else
+                            {
+                                <a href="#" onclick="return updateHomeStatus('@item.ID')" class="btn btn-danger">Çıkar</a>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+                            if (item.Status == true)
+                            {
+                                <a href="#" onclick="return updateStatus('@item.ID')" class="btn btn-success">Aktif</a>
+                            }
+                            else
+                            {
+                                <a href="#" onclick="return updateStatus('@item.ID')" class="btn btn-danger">Pasif</a>
+                            }
+                        }
+                    </td>
+                    <td><a href="#" onclick="return deleteTeam('@item.ID')" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Sil</a></td>
+                    <td><a href="/Admin/Team/UpdateTeam/@item.ID" class="btn btn-outline-success"><i class="fas fa-pen"></i> Güncelle</a></td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Kayıtlı Herhangi Bir Takım Verisi Bulunmamaktatır.</p>
+    }
+    <a href="/Admin/Team/CreateTeam/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni Referans Girişi</a>
+</div>
+
+
+<script>
+    function commentTeam(comment, id) {
+        Swal.fire({
+            title: 'Yorum',
+            text: comment,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Güncelle',
+            cancelButtonText: 'Tamam'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Team/UpdateTeam?id=" + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    function deleteTeam(id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: 'Bu öğeyi silerseniz geri alamazsınız!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sil',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Team/DeleteTeam?id=" + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    function updateHomeStatus(id) {
+        Swal.fire({
+            title: 'Ana Sayfa',
+            text: 'Ana Sayfa görünürlüğünü değiştirmek istediğinizden emin misiniz?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Değiştir',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Team/ChangeHomeStatus?id=" + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    function updateStatus(id) {
+        Swal.fire({
+            title: 'Durum',
+            text: 'Durumu değiştirmek istediğinizden emin misiniz?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Değiştir',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Team/ChangeTeamStatus?id=" + id;
+            }
+        });
+    }
+</script>

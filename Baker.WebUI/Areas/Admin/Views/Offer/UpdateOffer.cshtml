@@ -1,0 +1,49 @@
+﻿@model Baker.WebUI.CQRS.Results.OfferResults.GetOfferQueryResult
+
+@{
+    ViewData["Title"] = "UpdateOffer";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Hakkımızda Bilgisi Güncelleme</h1>
+    <br />
+    <form method="post" asp-controller="Offer" asp-action="UpdateOffer" enctype="multipart/form-data">
+        <label>ID</label>
+        <input type="text" asp-for="OfferID" disabled class="form-control" />
+        <br />
+        <input type="hidden" asp-for="OfferImage1" />
+        <input type="hidden" asp-for="OfferImage2" />
+        <label>Başlık</label>
+        <input type="text" asp-for="OfferTitle" class="form-control" />
+        <br />
+        <label>Alt-Başlık</label>
+        <input type="text" asp-for="OfferSubTitle" class="form-control" />
+        <br />
+        <label>Açıklama</label>
+        <input type="text" asp-for="OfferDescription" class="form-control" />
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <label>1. Görsel</label>
+                <br />
+                <img src="~/images/@Model.OfferImage1" width="90" />
+                <br />
+                <br />
+                <input type="file" name="image1" />
+            </div>
+            <div class="col-6">
+                <label>2. Görsel</label>
+                <br />
+                <img src="~/images/@Model.OfferImage2" width="90" />
+                <br />
+                <br />
+                <input type="file" name="image2" />
+            </div>
+        </div>
+        <br />
+        <br />
+        <button class="btn btn-success" type="submit"><i class="fas fa-pen"></i> Hakkımızda Bilgisi Güncelle</button>
+    </form>
+</div>

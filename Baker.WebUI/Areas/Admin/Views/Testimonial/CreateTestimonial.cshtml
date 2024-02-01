@@ -2,32 +2,36 @@
 
 @{
     ViewData["Title"] = "CreateTestimonial";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 }
 
-<h1>Referans Ekleme</h1>
-<br />
-<form method="post" enctype="multipart/form-data">
-    <label>Ad Soyad</label>
-    <input type="text" asp-for="TestimonialFullName" class="form-control" />
+<div class="container">
     <br />
-    <label>Ünvan</label>
-    <input type="text" asp-for="TestimonialTitle" class="form-control" />
+    <h1>Referans Ekleme</h1>
     <br />
-    <label>Referans Görseli</label>
-    <br />
-    <input type="file" name="image" />
-    <br />
-    <br />
-    <label>Yorum</label>
-    <textarea asp-for="TestimonialComment" rows="5" class="form-control"></textarea>
-    <br />
-    <input id="IsHome" asp-for="IsHome" type="checkbox" />
-    <label for="IsHome">Ana Sayfa</label>
-    <br />
-    <br />
-    <input id="Status" asp-for="Status" type="checkbox" />
-    <label for="Status">Durum</label>
-    <br />
-    <br />
-    <button class="btn btn-primary">Kaydet</button>
-</form>
+    <form method="post" enctype="multipart/form-data">
+        <label>Ad Soyad</label>
+        <input type="text" name="TestimonialFullName" class="form-control" />
+        <br />
+        <label>Ünvan</label>
+        <input type="text" name="TestimonialTitle" class="form-control" />
+        <br />
+        <label>Referans Görseli</label>
+        <br />
+        <input type="file" name="image" />
+        <br />
+        <br />
+        <label>Yorum</label>
+        <textarea name="TestimonialComment" rows="5" class="form-control"></textarea>
+        <br />
+        <input asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <br />
+        <input asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-primary">Kaydet</button>
+    </form>
+</div>

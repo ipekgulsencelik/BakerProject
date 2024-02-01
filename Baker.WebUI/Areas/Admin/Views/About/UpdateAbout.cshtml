@@ -1,0 +1,52 @@
+﻿@model Baker.WebUI.CQRS.Results.AboutResults.GetAboutQueryResult
+
+@{
+    ViewData["Title"] = "UpdateAbout";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Hakkımızda Bilgisi Güncelleme</h1>
+    <br />
+    <form method="post" asp-controller="About" asp-action="UpdateAbout" enctype="multipart/form-data">
+        <label>ID</label>
+        <input type="text" asp-for="AboutID" class="form-control"/>
+        <br />
+        <input type="hidden" asp-for="AboutImage1" />
+        <input type="hidden" asp-for="AboutImage2" />
+        <label>Başlık</label>
+        <input type="text" asp-for="AboutTitle" class="form-control" />
+        <br />
+        <label>Alt-Başlık</label>
+        <input type="text" asp-for="AboutSubTitle" class="form-control" />
+        <br />
+        <label>1. Açıklama</label>
+        <input type="text" asp-for="AboutDescription1" class="form-control" />
+        <br />
+        <label>2. Açıklama</label>
+        <input type="text" asp-for="AboutDescription2" class="form-control" />
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <label>1. Görsel</label>
+                <br />
+                <img src="~/images/@Model.AboutImage1" width="90" />
+                <br />
+                <br />
+                <input type="file" name="image1" />
+            </div>
+            <div class="col-6">
+                <label>2. Görsel</label>
+                <br />
+                <img src="~/images/@Model.AboutImage2" width="90" />
+                <br />
+                <br />
+                <input type="file" name="image2" />
+            </div>
+        </div>        
+        <br />
+        <br />
+        <button class="btn btn-success" type="submit"><i class="fas fa-pen"></i> Hakkımızda Bilgisi Güncelle</button>
+    </form>
+</div>

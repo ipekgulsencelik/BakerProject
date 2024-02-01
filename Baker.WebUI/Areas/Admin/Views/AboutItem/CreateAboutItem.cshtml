@@ -1,0 +1,25 @@
+﻿@model Baker.WebUI.CQRS.Commands.AboutItemCommands.CreateAboutItemCommand
+
+@{
+    ViewData["Title"] = "CreateAboutItem";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Yeni Hizmet Girişi</h1>
+    <br />
+    <form method="post">
+        <label>Bilgi</label>
+        <input type="text" asp-for="ItemName" class="form form-control" />
+        <br />
+        <input asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <input asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-primary"><i class="fas fa-save"></i> Hizmet Ekle</button>
+    </form>
+</div>

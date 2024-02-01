@@ -1,0 +1,46 @@
+﻿@model Baker.WebUI.Mediator.Results.ProductResults.GetProductByIdQueryResult
+
+@{
+    ViewData["Title"] = "ProductDetails";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h3>Referans Detayları</h3>
+    <br />
+    <table class="table table-striped">
+        <tr>
+            <th>Görsel :</th>
+            <td><img src="~/images/@Model.ProductImage" width="150" /></td>
+        </tr>
+        <tr>
+            <th>ID :</th>
+            <td>@Model.ID</td>
+        </tr>
+        <tr>
+            <th>Ürün Adı :</th>
+            <td>@Model.ProductName</td>
+        </tr>
+        <tr>
+            <th>Kategori Adı :</th>
+            <td>@ViewBag.category</td>
+        </tr>
+        <tr>
+            <th>Açıklama :</th>
+            <td>@Model.ProductDescription</td>
+        </tr>
+        <tr>
+            <th>Tarih :</th>
+            <td>@Model.CreatedAt.ToString("g")</td>
+        </tr>
+        <tr>
+            <th>Ürün Fiyatı :</th>
+            <td>@Model.ProductPrice ₺</td>
+        </tr>
+        <tr>
+            <th>Ürün Stok Sayısı :</th>
+            <td>@Model.ProductStock Adet</td>
+        </tr>
+    </table>
+</div>

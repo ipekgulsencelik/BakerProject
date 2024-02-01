@@ -18,9 +18,9 @@ namespace Baker.WebUI.CQRS.Handlers.ServiceHandlers
 
         public void Handle(UpdateServiceCommand command)
         {
-            var values = Builders<Service>.Filter.Eq(x => x.ID, command.ServiceID);
+            var values = Builders<Service>.Filter.Eq(x => x.ID, command.ID);
 
-            var item = Builders<Service>.Update
+            var service = Builders<Service>.Update
                 .Set(x => x.Icon, command.Icon)
                 .Set(x => x.Title, command.Title)
                 .Set(x => x.Description, command.Description)
@@ -29,7 +29,7 @@ namespace Baker.WebUI.CQRS.Handlers.ServiceHandlers
                 .Set(x => x.IsHome, command.IsHome)
                 .Set(x => x.Status, command.Status);
 
-            _collection.UpdateOne(values, item);
+            _collection.UpdateOne(values, service);
         }
     }
 }

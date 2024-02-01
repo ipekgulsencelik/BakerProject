@@ -1,5 +1,6 @@
 ﻿using Baker.DataAccessLayer.Settings;
 using Baker.EntityLayer.Concrete;
+using Baker.WebUI.CQRS.Results.AboutResults;
 using Baker.WebUI.CQRS.Results.OfferResults;
 using MongoDB.Driver;
 
@@ -16,11 +17,16 @@ namespace Baker.WebUI.CQRS.Handlers.OfferHandlers
             _collection = database.GetCollection<Offer>(databaseSettings.OfferCollectionName);
         }
 
-        public List<GetOfferQueryResult> Handle()
+        public GetOfferQueryResult Handle()
         {
-            var values = _collection.Find(FilterDefinition<Offer>.Empty).ToList();
+            var offer = _collection.Find(FilterDefinition<Offer>.Empty).FirstOrDefault();
 
-            var result = values.Select(offer => new GetOfferQueryResult
+            if (offer == null)
+            {
+                return new GetOfferQueryResult();
+            }
+
+            var result = new GetOfferQueryResult
             {
                 OfferID = offer.ID,
                 OfferDescription = offer.OfferDescription,
@@ -30,7 +36,7 @@ namespace Baker.WebUI.CQRS.Handlers.OfferHandlers
                 OfferSubTitle = offer.OfferSubTitle,
                 CreatedAt = offer.CreatedAt,
                 Status = offer.Status
-            }).ToList();
+            };
 
             return result;
         }

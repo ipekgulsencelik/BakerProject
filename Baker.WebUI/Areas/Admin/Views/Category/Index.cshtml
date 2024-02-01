@@ -1,0 +1,155 @@
+﻿@model List<Baker.WebUI.Mediator.Results.CategoryResults.GetCategoryQueryResult>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+    <br />
+    <h1>Takım Arkadaşları İşlemleri</h1>
+    <br />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Görsel</th>
+                <th>Kategori Adı</th>
+                <th>Açıklama</th>
+                <th>Ana Sayfa</th>
+                <th>Durum</th>
+                <th>Ürünler</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td><img src="~/images/@item.CategoryImage" style="height:50px; width:50px;" /></td>
+                    <td>@item.CategoryName</td>
+                    @if (@item.CategoryDescription == null || @item.CategoryDescription.Length <= 30)
+                    {
+                        <td>@item.CategoryDescription</td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a href="#" id="DescriptionBtn"
+                               onclick="return descriptionCategory('@item.CategoryDescription', '@item.ID')">
+                                @item.CategoryDescription.Substring(0, 10)...
+                            </a>
+                        </td>
+                    }
+                    <td>
+                        @{
+                            if (item.IsHome == true)
+                            {
+                                <a href="#" onclick="return updateHomeStatus('@item.ID')" class="btn btn-success">Ekle</a>
+                            }
+                            else
+                            {
+                                <a href="#" onclick="return updateHomeStatus('@item.ID')" class="btn btn-danger">Çıkar</a>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+                            if (item.Status == true)
+                            {
+                                <a href="#" onclick="return updateStatus('@item.ID')" class="btn btn-success">Aktif</a>
+                            }
+                            else
+                            {
+                                <a href="#" onclick="return updateStatus('@item.ID')" class="btn btn-danger">Pasif</a>
+                            }
+                        }
+                    </td>
+                    <td><a href="#" onclick="return getProducts('@item.ID')" class="btn btn-outline-inform"><i class="fas fa-trash"></i> Ürünler</a></td>
+                    <td><a href="#" onclick="return deleteCategory('@item.ID')" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Sil</a></td>
+                    <td><a href="/Admin/Category/UpdateCategory/@item.ID" class="btn btn-outline-success"><i class="fas fa-pen"></i> Güncelle</a></td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Kayıtlı Herhangi Bir Kategori Verisi Bulunmamaktatır.</p>
+    }
+    <a href="/Admin/Category/CreateCategory/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni Referans Girişi</a>
+</div>
+
+
+<script>
+    function descriptionCategory(description, id) {
+        Swal.fire({
+            title: 'Açıklama',
+            text: description,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Güncelle',
+            cancelButtonText: 'Tamam'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Category/UpdateCategory?id=" + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    function deleteCategory(id) {
+        Swal.fire({
+            title: 'Silmek istediğinize emin misiniz?',
+            text: 'Bu öğeyi silerseniz geri alamazsınız!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sil',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Category/DeleteCategory?id=" + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    function updateHomeStatus(id) {
+        Swal.fire({
+            title: 'Ana Sayfa',
+            text: 'Ana Sayfa görünürlüğünü değiştirmek istediğinizden emin misiniz?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Değiştir',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Category/ChangeHomeStatus?id=" + id;
+            }
+        });
+    }
+</script>
+
+<script>
+    function updateStatus(id) {
+        Swal.fire({
+            title: 'Durum',
+            text: 'Durumu değiştirmek istediğinizden emin misiniz?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Değiştir',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Category/ChangeCategoryStatus?id=" + id;
+            }
+        });
+    }
+</script>

@@ -1,4 +1,5 @@
-﻿using Baker.DataAccessLayer.Settings;
+﻿using AutoMapper;
+using Baker.DataAccessLayer.Settings;
 using Baker.EntityLayer.Concrete;
 using Baker.WebUI.CQRS.Queries.ServiceQueries;
 using Baker.WebUI.CQRS.Results.ServiceResults;
@@ -10,7 +11,7 @@ namespace Baker.WebUI.CQRS.Handlers.ServiceHandlers
     {
         private readonly IMongoCollection<Service> _collection;
 
-        public GetServiceByIdQueryHandler(IDatabaseSettings databaseSettings)
+        public GetServiceByIdQueryHandler(IDatabaseSettings databaseSettings, IMapper mapper)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
@@ -25,7 +26,7 @@ namespace Baker.WebUI.CQRS.Handlers.ServiceHandlers
 
             var result = new GetServiceByIdQueryResult
             {
-                ServiceID = service.ID,
+                ID = service.ID,
                 Icon = service.Icon,
                 Title = service.Title,
                 Description = service.Description,

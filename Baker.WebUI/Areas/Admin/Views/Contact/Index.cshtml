@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+	<br />
+	<h3>İletişim Bilgisi İşlemleri</h3>
+	<br />
+	@if (ViewBag.flag == true)
+	{
+		<table class="table table-striped">
+			<tr>
+				<th>ID :</th>
+				<td>@ViewBag.id</td>
+			</tr>
+			<tr>
+				<th>Başlık :</th>
+				<td>@ViewBag.header</td>
+			</tr>
+			<tr>
+				<th>Adres :</th>
+				<td>@ViewBag.address</td>
+			</tr>
+			<tr>
+				<th>Mail Adresi :</th>
+				<td>@ViewBag.mail</td>
+			</tr>
+			<tr>
+				<th>Telefon Numarası :</th>
+				<td>@ViewBag.phone</td>
+			</tr>
+			<tr>
+				<th>Tarih :</th>
+				<td>@ViewBag.createdAt</td>
+			</tr>
+		</table>
+		<br />
+		<a href="/Admin/Contact/UpdateContact/" class="btn btn-outline-success">İletişim Bilgilerini Güncelle</a>
+	}
+	else
+	{
+		<p>Kayıtlı Herhangi Bir İletişim Bilgisi Verisi Bulunmamaktatır.</p>
+		<br />
+		<a href="/Admin/Contact/CreateContact/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni İletişim Bilgisi Girişi</a>
+	}
+</div>

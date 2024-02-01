@@ -1,0 +1,41 @@
+﻿@model Baker.WebUI.CQRS.Commands.AboutCommands.CreateAboutCommand
+
+@{
+    ViewData["Title"] = "CreateAbout";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Yeni Hakkımızda Girişi</h1>
+    <br />
+    <form method="post" enctype="multipart/form-data">
+        <label>Başlık</label>
+        <input type="text" asp-for="AboutTitle" class="form form-control" />
+        <br />
+        <label>Alt-Başlık</label>
+        <input type="text" asp-for="AboutSubTitle" class="form form-control" />
+        <br />
+        <label>1. Açıklama</label>
+        <input type="text" asp-for="AboutDescription1" class="form form-control" />
+        <br />
+        <label>2. Açıklama</label>
+        <input type="text" asp-for="AboutDescription2" class="form form-control" />
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <label>1. Görsel</label>
+                <br />
+                <input type="file" name="image1" />
+            </div>
+            <div class="col-6">
+                <label>2. Görsel</label>
+                <br />
+                <input type="file" name="image2" />
+            </div>
+        </div>
+        <br />
+        <br />
+        <button class="btn btn-primary"><i class="fas fa-save"></i> Hakkımızda Bilgisi Ekle</button>
+    </form>
+</div>

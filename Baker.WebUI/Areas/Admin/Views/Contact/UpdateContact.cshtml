@@ -1,0 +1,30 @@
+﻿@model Baker.WebUI.CQRS.Results.ContactResults.GetContactQueryResult
+
+@{
+    ViewData["Title"] = "UpdateContact";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>İletişim Bilgisi Güncelleme</h1>
+    <br />
+    <form method="post" asp-controller="Contact" asp-action="UpdateContact" enctype="multipart/form-data">
+        <label>ID</label>
+        <input type="text" asp-for="ContactID" disabled class="form-control" />
+        <br />
+        <label>Başlık</label>
+        <input type="text" asp-for="Title" class="form-control" />
+        <br />
+        <label>Adres</label>
+        <input type="text" asp-for="Address" class="form-control" />
+        <br />
+        <label>Mail Adresi</label>
+        <input type="email" asp-for="EmailAddress" class="form-control" />
+        <br />
+        <label>Telefon Numarası</label>
+        <input type="tel" asp-for="PhoneNumber" class="form-control" />
+        <br />
+        <button class="btn btn-success" type="submit"><i class="fas fa-pen"></i> İletişim Bilgisi Güncelle</button>
+    </form>
+</div>

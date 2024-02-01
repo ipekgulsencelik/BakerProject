@@ -1,39 +1,50 @@
-﻿using Baker.DataAccessLayer.Settings;
+﻿using AutoMapper;
+using Baker.DataAccessLayer.Settings;
 using Baker.EntityLayer.Concrete;
 using Baker.WebUI.CQRS.Results.AboutResults;
+using Baker.WebUI.CQRS.Results.ContactResults;
 using MongoDB.Driver;
 
 namespace Baker.WebUI.CQRS.Handlers.AboutHandlers
 {
-    public class GetAboutQueryHandler
+	public class GetAboutQueryHandler
     {
         private readonly IMongoCollection<About> _collection;
+        private readonly IMapper _mapper;   
 
-        public GetAboutQueryHandler(IDatabaseSettings databaseSettings)
+        public GetAboutQueryHandler(IDatabaseSettings databaseSettings, IMapper mapper)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
             _collection = database.GetCollection<About>(databaseSettings.AboutCollectionName);
+            _mapper = mapper;
         }
 
-        public List<GetAboutQueryResult> Handle()
+        public GetAboutQueryResult Handle()
         {
-            var values = _collection.Find(FilterDefinition<About>.Empty).ToList();
+            var about = _collection.Find(FilterDefinition<About>.Empty).FirstOrDefault();
 
-            var result = values.Select(about => new GetAboutQueryResult
+            // var result = _mapper.Map<GetAboutQueryResult>(about);
+
+            if (about == null)
             {
-                AboutID = about.ID,
+                return new GetAboutQueryResult();
+            }
+
+            var result = new GetAboutQueryResult
+			{
+				AboutID = about.ID,
+                AboutTitle = about.AboutTitle,
+                AboutSubTitle = about.AboutSubTitle,
                 AboutDescription1 = about.AboutDescription1,
                 AboutDescription2 = about.AboutDescription2,
                 AboutImage1 = about.AboutImage1,
-                AboutImage2 = about.AboutImage2,
-                AboutTitle = about.AboutTitle,
-                AboutSubTitle = about.AboutSubTitle,
-                CreatedAt = about.CreatedAt,
-                Status = about.Status
-            }).ToList();
+                AboutImage2 = about.AboutImage2,				
+				CreatedAt = about.CreatedAt,
+				Status = about.Status
+			};
 
-            return result;
+			return result;
         }
     }
 }

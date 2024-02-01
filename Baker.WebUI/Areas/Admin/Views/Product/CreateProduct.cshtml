@@ -1,0 +1,49 @@
+﻿@model Baker.WebUI.Mediator.Commands.ProductCommands.CreateProductCommand
+
+@{
+    ViewData["Title"] = "CreateProduct";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Ürün Ekleme</h1>
+    <br />
+    <form method="post" enctype="multipart/form-data">
+        <label>Ürün Adı</label>
+        <input type="text" asp-for="ProductName" class="form-control" />
+        <br />
+        <label>Açıklama</label>
+        <input type="text" asp-for="ProductDescription" class="form-control" />
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Kategori Seçiniz</label>
+                    @Html.DropDownListFor(x => x.CategoryName, (List<SelectListItem>)ViewBag.category, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <label>Ürün Fiyatı</label>
+        <input type="number" asp-for="ProductPrice" class="form-control" />
+        <br />
+        <label>Stok Sayısı</label>
+        <input type="number" asp-for="ProductStock" class="form-control" />
+        <br />
+        <label>Ürün Görsel:</label>
+        <br />
+        <input type="file" name="image" />
+        <br />
+        <br />
+        <input asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <br />
+        <input asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-primary"><i class="fas fa-save"></i> Ürün Ekle</button>
+    </form>
+</div>

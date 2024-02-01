@@ -1,4 +1,5 @@
-﻿using Baker.DataAccessLayer.Settings;
+﻿using AutoMapper;
+using Baker.DataAccessLayer.Settings;
 using Baker.EntityLayer.Concrete;
 using Baker.WebUI.Mediator.Queries.TeamQueries;
 using Baker.WebUI.Mediator.Results.TeamResults;
@@ -10,30 +11,20 @@ namespace Baker.WebUI.Mediator.Handlers.TeamHandlers
     public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, GetTeamByIdQueryResult>
     {
         private readonly IMongoCollection<Team> _collection;
+        private readonly IMapper _mapper;
 
-        public GetTeamByIdQueryHandler(IDatabaseSettings databaseSettings)
+        public GetTeamByIdQueryHandler(IDatabaseSettings databaseSettings, IMapper mapper)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
             _collection = database.GetCollection<Team>(databaseSettings.TeamCollectionName);
+            _mapper = mapper;
         }
 
         public async Task<GetTeamByIdQueryResult> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
         {
-            var values = Builders<Team>.Filter.Eq(x => x.ID, request.Id);
-
-            var team = await _collection.Find(values).FirstOrDefaultAsync(cancellationToken); ;
-
-            var result = new GetTeamByIdQueryResult
-            {
-                ID = team.ID,
-                TeamTitle = team.TeamTitle,
-                TeamFullName = team.TeamFullName,
-                TeamImageURL = team.TeamImageURL,
-                CreatedAt = team.CreatedAt,
-                IsHome = team.IsHome,
-                Status = team.Status
-            };
+            var team = await _collection.Find(x => x.ID == request.Id).FirstOrDefaultAsync();
+            var result = _mapper.Map<GetTeamByIdQueryResult>(team);
 
             return result;
         }

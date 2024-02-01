@@ -25,7 +25,7 @@ namespace Baker.WebUI.CQRS.Handlers.AboutItemHandlers
 
             var result = new GetAboutItemByIdQueryResult
             {
-                AboutItemID = item.ID,
+                ID = item.ID,
                 ItemName = item.ItemName,                
                 AboutID = item.AboutID,
                 CreatedAt = item.CreatedAt,

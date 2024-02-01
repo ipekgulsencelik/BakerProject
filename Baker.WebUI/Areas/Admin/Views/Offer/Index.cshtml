@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+	<br />
+	<h3>Hakkımda Bilgisi İşlemleri</h3>
+	<br />
+	@if (ViewBag.flag == true)
+	{
+		<table class="table table-striped">
+			<tr>
+				<th>ID :</th>
+				<td>@ViewBag.id</td>
+			</tr>
+			<tr>
+				<th>1. Görsel :</th>
+				<td><img src="~/images/@ViewBag.image1" style="height:200px; width:200px;" /></td>
+			</tr>
+			<tr>
+				<th>2. Görsel :</th>
+				<td><img src="~/images/@ViewBag.image2" style="height:200px; width:200px;" /></td>
+			</tr>
+			<tr>
+				<th>Başlık :</th>
+				<td>@ViewBag.mainTitle</td>
+			</tr>
+			<tr>
+				<th>Alt-Başlık :</th>
+				<td>@ViewBag.subTitle</td>
+			</tr>
+			<tr>
+				<th>Açıklama :</th>
+				<td>@ViewBag.description</td>
+			</tr>
+			<tr>
+				<th>Öne Çıkanlar :</th>
+				@* @await Html.PartialAsync("_FeatureListPartial.cshtml", "Offer") *@
+			</tr>
+		</table>
+		<br />
+		<a href="/Admin/Offer/UpdateOffer/" class="btn btn-outline-success">Hakkımda Bilgilerini Güncelle</a>
+	}
+	else
+	{
+		<p>Kayıtlı Herhangi Bir Hakkımızda Bilgisi Verisi Bulunmamaktatır.</p>
+		<br />
+		<a href="/Admin/Offer/CreateOffer/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni Hakkımda Bilgisi Girişi</a>
+	}
+</div>

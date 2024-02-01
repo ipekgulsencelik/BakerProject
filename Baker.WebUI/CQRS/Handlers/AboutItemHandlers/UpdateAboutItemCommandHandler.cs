@@ -18,11 +18,11 @@ namespace Baker.WebUI.CQRS.Handlers.AboutItemHandlers
 
         public void Handle(UpdateAboutItemCommand command)
         {
-            var values = Builders<AboutItem>.Filter.Eq(x => x.ID, command.AboutItemID);
+            var values = Builders<AboutItem>.Filter.Eq(x => x.ID, command.ID);
 
             var item = Builders<AboutItem>.Update
                 .Set(x => x.ItemName, command.ItemName)
-                .Set(x => x.AboutID, command.AboutItemID)
+                .Set(x => x.AboutID, command.AboutID)
                 .Set(x => x.CreatedAt, command.CreatedAt)
                 .Set(x => x.IsHome, command.IsHome)
                 .Set(x => x.Status, command.Status);

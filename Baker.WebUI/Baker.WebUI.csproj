@@ -10,6 +10,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="ChainOfResponsibility\" />
+    <Folder Include="ViewComponents\" />
     <Folder Include="UnitOfWork\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
@@ -27,13 +28,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Baker.BusinessLayer\Baker.BusinessLayer.csproj" />
     <ProjectReference Include="..\Baker.DataAccessLayer\Baker.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\Baker.DTO\Baker.DTO.csproj" />
   </ItemGroup>
 
 </Project>

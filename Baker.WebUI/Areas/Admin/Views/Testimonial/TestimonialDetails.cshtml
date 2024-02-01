@@ -1,0 +1,38 @@
+﻿@model Baker.WebUI.Mediator.Results.TestimonialResults.GetTestimonialByIdQueryResult
+
+@{
+    ViewData["Title"] = "TestimonialDetails";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h3>Referans Detayları</h3>
+    <br />
+    <table class="table table-striped">
+        <tr>
+            <th>Görsel :</th>
+            <td><img src="~/images/@Model.TestimonialImageURL" width="150" /></td>
+        </tr>
+        <tr>
+            <th>ID :</th>
+            <td>@Model.ID</td>
+        </tr>
+        <tr>
+            <th>Ad Soyad :</th>
+            <td>@Model.TestimonialFullName</td>
+        </tr>
+        <tr>
+            <th>Ünvan :</th>
+            <td>@Model.TestimonialTitle</td>
+        </tr>
+        <tr>
+            <th>Tarih :</th>
+            <td>@Model.CreatedAt.ToString("g")</td>
+        </tr>
+        <tr>
+            <th>Yorum :</th>
+            <td>@Model.TestimonialComment</td>
+        </tr>
+    </table>
+</div>

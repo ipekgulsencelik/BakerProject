@@ -1,0 +1,27 @@
+﻿@model Baker.WebUI.CQRS.Commands.ContactCommands.CreateContactCommand
+
+@{
+    ViewData["Title"] = "CreateContact";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Yeni İletişim Bilgisi Girişi</h1>
+    <br />
+    <form method="post">
+        <label>Başlık</label>
+        <input type="text" asp-for="Title" class="form form-control" />
+        <br />
+        <label>Adres</label>
+        <input type="text" asp-for="Address" class="form form-control" />
+        <br />
+        <label>Mail Adresi</label>
+        <input type="email" asp-for="EmailAddress" class="form form-control" />
+        <br />
+        <label>Telefon Numarası</label>
+        <input type="tel" asp-for="PhoneNumber" class="form form-control" />
+        <br />
+        <button class="btn btn-primary"><i class="fas fa-save"></i> İletişim Bilgisi Ekle</button>
+    </form>
+</div>

@@ -1,38 +1,45 @@
-﻿@model Baker.WebUI.Mediator.Results.TestimonialResults.GetTestimonialByIdQueryResult
+﻿@using Baker.WebUI.Mediator.Results.TestimonialResults
+@model GetTestimonialByIdQueryResult
 
 @{
     ViewData["Title"] = "UpdateTestimonial";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 }
 
-<h1>Referans Güncelleme</h1>
-<br />
-<form method="post" enctype="multipart/form-data">
-    <input type="hidden" asp-for="ID" />
-    <input type="hidden" asp-for="TestimonialImageURL" />
-    <label>Referans Adı</label>
-    <input type="text" asp-for="TestimonialFullName" class="form-control" id="floatingInput" placeholder="Referans Adı" required />
+<div class="container">
     <br />
-    <label>Yorum</label>
-    <textarea asp-for="TestimonialComment" rows="5" class="form-control" required></textarea>
+    <h1>Referans Güncelleme</h1>
     <br />
-    <label>Referans Ünvanı</label>
-    <input type="text" asp-for="TestimonialTitle" class="form-control" id="floatingInput" placeholder="Referans Ünvanı" />
+    <form method="post" asp-controller="Testimonial" asp-action="UpdateTestimonial" enctype="multipart/form-data">       
+        <input type="hidden" asp-for="ID" />
+        <br />
+        <input type="hidden" asp-for="TestimonialImageURL" />
+        <label>Referans Adı</label>
+        <input type="text" asp-for="TestimonialFullName" class="form-control" id="floatingInput" placeholder="Referans Adı" required />
+        <br />
+        <label>Yorum</label>
+        <textarea asp-for="TestimonialComment" rows="5" class="form-control" required></textarea>
+        <br />
+        <label>Referans Ünvanı</label>
+        <input type="text" asp-for="TestimonialTitle" class="form-control" id="floatingInput" placeholder="Referans Ünvanı" />
+        <br />
+        <label>Referans Görseli</label>
+        <br />
+        <img src="~/images/@Model.TestimonialImageURL" width="90" />
+        <br />
+        <br />
+        <input type="file" name="image" />
+        <br />
+        <br />
+        <input id="IsHome" asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <br />
+        <input id="Status" asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-success" type="submit"><i class="fas fa-pen"></i> Referans Güncelle</button>
+    </form>
     <br />
-    <label>Referans Görseli</label>
-    <br />
-    <img src="~/images/@Model.TestimonialImageURL" width="90" />
-    <br />
-    <br />
-    <input type="file" name="image" />
-    <br />
-    <br />
-    <input id="IsHome" asp-for="IsHome" type="checkbox" />
-    <label for="IsHome">Ana Sayfa</label>
-    <br />
-    <br />
-    <input id="Status" asp-for="Status" type="checkbox" />
-    <label for="Status">Durum</label>
-    <br />
-    <br />
-    <button class="btn btn-success">Referans Güncelle</button>
-</form>
+</div>

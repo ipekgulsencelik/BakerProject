@@ -1,0 +1,31 @@
+﻿@model Baker.WebUI.CQRS.Commands.ServiceCommands.CreateServiceCommand
+
+@{
+    ViewData["Title"] = "CreateService";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Yeni Hizmet Girişi</h1>
+    <br />
+    <form method="post">
+        <label>Başlık</label>
+        <input type="text" name="Title" class="form-control" id="floatingInput" placeholder="Başlık..." required />
+        <br />
+        <label>Açıklama</label>
+        <textarea name="Description" rows="5" class="form-control" placeholder="Açıklama..." required></textarea>
+        <br />
+        <label>İkon</label>
+        <input type="text" name="Icon" class="form-control" id="floatingInput" placeholder="İkon..." required />
+        <br />
+        <input asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <input asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-primary"><i class="fas fa-save"></i> Hizmet Ekle</button>
+    </form>
+</div>

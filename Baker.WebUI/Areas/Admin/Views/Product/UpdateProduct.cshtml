@@ -1,0 +1,59 @@
+﻿@using Baker.WebUI.Mediator.Results.ProductResults
+@model GetProductByIdQueryResult
+
+@{
+    ViewData["Title"] = "UpdateProduct";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Ürün Güncelleme</h1>
+    <br />
+    <form method="post" asp-controller="Product" asp-action="UpdateProduct" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="ProductImage" />
+        <label>ID</label>
+        <input type="text" asp-for="ID" disabled class="form-control" />
+        <br />
+        <label>Ürün Adı</label>
+        <input type="text" asp-for="ProductName" class="form-control" id="floatingInput" placeholder="Ad..." required />
+        <br />
+        <label>Açıklama</label>
+        <input type="text" asp-for="ProductDescription" class="form-control" />
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Kategori Seçiniz</label>
+                    @Html.DropDownListFor(x => x.CategoryName, (List<SelectListItem>)ViewBag.category, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <label>Ürün Görsel:</label>
+        <br />
+        <img src="~/images/@Model.ProductImage" width="90" />
+        <br />
+        <br />
+        <input type="file" name="image" />
+        <br />
+        <br />
+        <label>Ürün Fiyatı</label>
+        <input type="number" asp-for="ProductPrice" class="form-control" />
+        <br />
+        <label>Stok Sayısı</label>
+        <input type="number" asp-for="ProductStock" class="form-control" />
+        <br />
+        <input id="IsHome" asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <br />
+        <input id="Status" asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-success" type="submit"><i class="fas fa-pen"></i> Ürün Güncelle</button>
+    </form>
+    <br />
+</div>

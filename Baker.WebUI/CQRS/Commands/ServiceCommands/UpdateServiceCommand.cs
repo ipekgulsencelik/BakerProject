@@ -1,8 +1,13 @@
-﻿namespace Baker.WebUI.CQRS.Commands.ServiceCommands
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace Baker.WebUI.CQRS.Commands.ServiceCommands
 {
     public class UpdateServiceCommand
     {
-        public string ServiceID { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ID { get; set; }
         public string? Icon { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }

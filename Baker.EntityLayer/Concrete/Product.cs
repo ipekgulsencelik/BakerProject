@@ -12,9 +12,6 @@ namespace Baker.EntityLayer.Concrete
         public string? ProductImage { get; set; }
         public bool IsHome { get; set; }
 
-        public string? CategoryID { get; set; }
-
-        [BsonIgnore]
-        public Category? Category { get; set; }
+		public string? CategoryName { get; set; }
     }
 }

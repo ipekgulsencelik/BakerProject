@@ -2,7 +2,7 @@
 {
     public class GetAboutItemByIdQueryResult
     {
-        public string AboutItemID { get; set; }
+        public string ID { get; set; }
         public string? ItemName { get; set; }
         public string? AboutID { get; set; }
         public DateTime CreatedAt { get; set; }

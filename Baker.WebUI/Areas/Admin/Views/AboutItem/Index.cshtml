@@ -1,0 +1,139 @@
+﻿@model List<Baker.WebUI.CQRS.Results.AboutItemResults.GetAboutItemQueryResult>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+	int count = 0;
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+	<br />
+	<h3>Hizmet İşlemleri</h3>
+	<br />
+	@if (Model.Count() > 0)
+	{
+		<table class="table table-bordered">
+			<tr>
+				<th>#</th>
+				<th>ID</th>
+				<th>Başlık</th>
+				<th>Ana Sayfa</th>
+				<th>Durum</th>
+				<th>Sil</th>
+				<th>Güncelle</th>
+			</tr>
+			@foreach (var item in Model)
+			{
+				count++;
+				<tr>
+					<td>@count</td>
+					<td>@item.AboutItemID</td>
+					<td>@item.AboutID</td>
+					<td> @item.ItemName</td>					
+					<td>
+						@{
+							if (item.IsHome == true)
+							{
+								<a href="#" onclick="return updateHomeStatus('@item.AboutItemID')" class="btn btn-success">Ekle</a>
+							}
+							else
+							{
+								<a href="#" onclick="return updateHomeStatus('@item.AboutItemID')" class="btn btn-danger">Çıkar</a>
+							}
+						}
+					</td>
+					<td>
+						@{
+							if (item.Status == true)
+							{
+								<a href="#" onclick="return updateStatus('@item.AboutItemID')" class="btn btn-success">Aktif</a>
+							}
+							else
+							{
+								<a href="#" onclick="return updateStatus('@item.AboutItemID')" class="btn btn-danger">Pasif</a>
+							}
+						}
+					</td>
+					<td><a href="#" onclick="return deleteAboutItem('@item.AboutItemID')" class="btn btn-outline-danger"><i class="fas fa-trash"></i> Sil</a></td>
+					<td><a href="/Admin/AboutItem/UpdateAboutItem/@item.AboutItemID" class="btn btn-outline-success"><i class="fas fa-pen"></i> Güncelle</a></td>
+				</tr>
+			}
+		</table>
+	}
+	else
+	{
+		<p>Kayıtlı Herhangi Bir Hizmet Verisi Bulunmamaktatir.</p>
+	}
+	<a href="/Admin/AboutItem/CreateAboutItem/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni Hizmet Bilgisi Girişi</a>
+</div>
+
+<script>
+	function descriptionAboutItem(description, id) {
+		Swal.fire({
+			title: 'Açıklama',
+			text: description,
+			icon: 'success',
+			showCancelButton: true,
+			confirmButtonText: 'Güncelle',
+			cancelButtonText: 'Tamam'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "/Admin/AboutItem/UpdateAboutItem?id=" + id;
+			}
+		});
+	}
+</script>
+
+<script>
+	function deleteAboutItem(id) {
+		Swal.fire({
+			title: 'Silmek istediğinize emin misiniz?',
+			text: 'Bu öğeyi silerseniz geri alamazsınız!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Sil',
+			cancelButtonText: 'İptal'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "/Admin/AboutItem/DeleteAboutItem?id=" + id;
+			}
+		});
+	}
+</script>
+
+<script>
+	function updateHomeStatus(id) {
+		Swal.fire({
+			title: 'Ana Sayfa',
+			text: 'Ana Sayfa görünürlüğünü değiştirmek istediğinizden emin misiniz?',
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonText: 'Değiştir',
+			cancelButtonText: 'İptal'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "/Admin/AboutItem/ChangeHomeStatus?id=" + id;
+			}
+		});
+	}
+</script>
+
+<script>
+	function updateStatus(id) {
+		Swal.fire({
+			title: 'Durum',
+			text: 'Durumu değiştirmek istediğinizden emin misiniz?',
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonText: 'Değiştir',
+			cancelButtonText: 'İptal'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = "/Admin/AboutItem/ChangeAboutItemStatus?id=" + id;
+			}
+		});
+	}
+</script>

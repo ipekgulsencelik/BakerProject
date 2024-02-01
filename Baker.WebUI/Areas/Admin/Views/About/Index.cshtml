@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+	<br />
+	<h3>Hakkımda Bilgisi İşlemleri</h3>
+	<br />
+	@if (ViewBag.flag == true)
+	{
+		<table class="table table-striped">
+			<tr>
+				<th>ID :</th>
+				<td>@ViewBag.id</td>
+			</tr>
+			<tr>
+				<th>1. Görsel :</th>
+				<td><img src="~/images/@ViewBag.image1" style="height:200px;" /></td>
+			</tr>
+			<tr>
+				<th>2. Görsel :</th>
+				<td><img src="~/images/@ViewBag.image2" style="height:200px;" /></td>
+			</tr>
+			<tr>
+				<th>Başlık :</th>
+				<td>@ViewBag.mainTitle</td>
+			</tr>
+			<tr>
+				<th>Alt-Başlık :</th>
+				<td>@ViewBag.subTitle</td>
+			</tr>
+			<tr>
+				<th>1. Açıklama :</th>
+				<td>@ViewBag.description1</td>
+			</tr>
+			<tr>
+				<th>2. Açıklama :</th>
+				<td>@ViewBag.description2</td>
+			</tr>
+			<tr>
+			<th>Öne Çıkanlar :</th>
+			@* @await Html.PartialAsync("_FeatureListPartial.cshtml", "About") *@
+			</tr>
+		</table>
+		<br />
+		<a href="/Admin/About/UpdateAbout/" class="btn btn-outline-success">Hakkımda Bilgilerini Güncelle</a>
+	}
+	else
+	{
+		<p>Kayıtlı Herhangi Bir Hakkımızda Bilgisi Verisi Bulunmamaktatır.</p>
+		<br />
+		<a href="/Admin/About/CreateAbout/" class="btn btn-outline-primary"><i class="fas fa-plus-circle"></i> Yeni Hakkımda Bilgisi Girişi</a>
+	}
+</div>

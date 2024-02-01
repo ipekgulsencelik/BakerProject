@@ -1,0 +1,38 @@
+﻿@model Baker.WebUI.CQRS.Commands.OfferCommands.CreateOfferCommand
+
+@{
+    ViewData["Title"] = "CreateOffer";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Yeni Hakkımızda Girişi</h1>
+    <br />
+    <form method="post" enctype="multipart/form-data">
+        <label>Başlık</label>
+        <input type="text" asp-for="OfferTitle" class="form form-control" />
+        <br />
+        <label>Alt-Başlık</label>
+        <input type="text" asp-for="OfferSubTitle" class="form form-control" />
+        <br />
+        <label>Açıklama</label>
+        <input type="text" asp-for="OfferDescription" class="form form-control" />
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <label>1. Görsel</label>
+                <br />
+                <input type="file" name="image1" />
+            </div>
+            <div class="col-6">
+                <label>2. Görsel</label>
+                <br />
+                <input type="file" name="image2" />
+            </div>
+        </div>
+        <br />
+        <br />
+        <button class="btn btn-primary"><i class="fas fa-save"></i> Hakkımızda Bilgisi Ekle</button>
+    </form>
+</div>

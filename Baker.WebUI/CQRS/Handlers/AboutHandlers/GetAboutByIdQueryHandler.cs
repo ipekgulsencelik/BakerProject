@@ -1,4 +1,5 @@
-﻿using Baker.DataAccessLayer.Settings;
+﻿using AutoMapper;
+using Baker.DataAccessLayer.Settings;
 using Baker.EntityLayer.Concrete;
 using Baker.WebUI.CQRS.Queries.AboutQueries;
 using Baker.WebUI.CQRS.Results.AboutResults;
@@ -9,32 +10,20 @@ namespace Baker.WebUI.CQRS.Handlers.AboutHandlers
     public class GetAboutByIdQueryHandler
     {
         private readonly IMongoCollection<About> _collection;
+        private readonly IMapper _mapper;
 
-        public GetAboutByIdQueryHandler(IDatabaseSettings databaseSettings)
+        public GetAboutByIdQueryHandler(IDatabaseSettings databaseSettings, IMapper mapper)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
             _collection = database.GetCollection<About>(databaseSettings.AboutCollectionName);
+            _mapper = mapper;
         }
 
         public GetAboutByIdQueryResult Handle(GetAboutByIdQuery query)
         {
-            var values = Builders<About>.Filter.Eq(x => x.ID, query.Id);
-
-            var about = _collection.Find(values).FirstOrDefault();
-
-            var result = new GetAboutByIdQueryResult
-            {
-                AboutID = about.ID,
-                AboutTitle = about.AboutTitle,
-                AboutSubTitle = about.AboutSubTitle,
-                AboutDescription1 = about.AboutDescription1,
-                AboutDescription2 = about.AboutDescription2,
-                AboutImage1 = about.AboutImage1,
-                AboutImage2 = about.AboutImage2,
-                CreatedAt = about.CreatedAt,
-                Status = about.Status
-            };
+            var about = _collection.Find(x => x.ID == query.Id).FirstOrDefault();
+            var result = _mapper.Map<GetAboutByIdQueryResult>(about);
 
             return result;
         }

@@ -1,0 +1,44 @@
+﻿@using Baker.WebUI.Mediator.Results.CategoryResults
+@model GetCategoryByIdQueryResult
+
+@{
+    ViewData["Title"] = "UpdateCategory";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Kategori Güncelleme</h1>
+    <br />
+    <form method="post" asp-controller="Category" asp-action="UpdateCategory" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="CategoryImage" />
+        <label>ID</label>
+        <input type="text" asp-for="ID" disabled class="form-control" />
+        <br />
+        <label>Kategori Adı</label>
+        <input type="text" asp-for="CategoryName" class="form-control" id="floatingInput" placeholder="Ad..." required />
+        <br />
+        <label>Açıklama</label>
+        <input type="text" asp-for="CategoryDescription" class="form-control" id="floatingInput" placeholder="Açıklama..." />
+        <br />
+        <label>Kategori Görsel:</label>
+        <br />
+        <img src="~/images/@Model.CategoryImage" width="90" />
+        <br />
+        <br />
+        <input type="file" name="image" />
+        <br />
+        <br />
+        <input id="IsHome" asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <br />
+        <input id="Status" asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-success" type="submit"><i class="fas fa-pen"></i> Kategori Güncelle</button>
+    </form>
+    <br />
+</div>

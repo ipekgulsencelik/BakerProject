@@ -1,0 +1,42 @@
+﻿@using Baker.WebUI.Mediator.Results.TeamResults
+@model GetTeamByIdQueryResult
+
+@{
+    ViewData["Title"] = "UpdateTeam";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <h1>Takım Arkadaşı Güncelleme</h1>
+    <br />
+    <form method="post" asp-controller="Team" asp-action="UpdateTeam" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ID" />
+        <br />
+        <input type="hidden" asp-for="TeamImageURL" />
+        <label>Çalışan Adı</label>
+        <input type="text" asp-for="TeamFullName" class="form-control" id="floatingInput" placeholder="Ad..." required />
+        <br />
+        <label>Çalışan Ünvanı</label>
+        <input type="text" asp-for="TeamTitle" class="form-control" id="floatingInput" placeholder="Ünvan..." />
+        <br />
+        <label>Referans Görseli</label>
+        <br />
+        <img src="~/images/@Model.TeamImageURL" width="90" />
+        <br />
+        <br />
+        <input type="file" name="image" />
+        <br />
+        <br />
+        <input id="IsHome" asp-for="IsHome" type="checkbox" />
+        <label for="IsHome">Ana Sayfa</label>
+        <br />
+        <br />
+        <input id="Status" asp-for="Status" type="checkbox" />
+        <label for="Status">Durum</label>
+        <br />
+        <br />
+        <button class="btn btn-success" type="submit"><i class="fas fa-pen"></i> Çalışan Güncelle</button>
+    </form>
+    <br />
+</div>
